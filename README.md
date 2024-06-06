@@ -1,6 +1,6 @@
 # Golang
 
-Este repo tiene proeyctos cereados en Golang
+Este repo tiene proyectos creados en Golang
 
 ### La Documentacion de GO
 
