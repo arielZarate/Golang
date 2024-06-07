@@ -7,7 +7,7 @@ import "fmt";
 func main() {
 
 
-	fmt.Println("Viva el papo!!");
+	fmt.Println("Hola mundo cruel 😀!!");
 }
 
 
