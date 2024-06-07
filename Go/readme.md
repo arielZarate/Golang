@@ -1,4 +1,4 @@
-# Lenguaje Go
+# Lenguaje de Programacion Go
 
 ## Para la instalacion de Go
 
@@ -19,14 +19,29 @@ No descomprima el archivo en un árbol /usr/local/go existente. Se sabe que esto
 2 -Agregue /usr/local/go/bin a la PATHvariable de entorno.
 Puede hacer esto agregando la siguiente línea a su $HOME/.profile o /etc/profile (para una instalación en todo el sistema):
 
-exportar RUTA=$RUTA:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
-Nota: Es posible que los cambios realizados en un archivo de perfil no se apliquen hasta la próxima vez que inicie sesión en su computadora. Para aplicar los cambios inmediatamente, simplemente ejecute los comandos del shell directamente o ejecútelos desde el perfil usando un comando como source $HOME/.profile.
 
-3 -Verifique que haya instalado Go abriendo un símbolo del sistema y escribiendo el siguiente comando:
+Nota: aplicar los cambios
+source ~/.profile
+
+
+3 -Crear el Espacio de Trabajo de Go:
+
+Aunque no se crea automáticamente, puedes crear un directorio llamado go en tu directorio home para tu espacio de trabajo:
+
+mkdir -p $HOME/go/{bin,src,pkg}
+
+
+4 -Verifique que haya instalado Go abriendo un símbolo del sistema y escribiendo el siguiente comando:
 $ ir versión
 
-4 -Confirme que el comando imprima la versión instalada de Go.
+4.2 -verificar que las variables de entorno estén configuradas correctamente con:
+echo $GOPATH
+
+Esto debería mostrar /home/tu_usuario/go.
 
 ```
 
@@ -47,6 +62,10 @@ Se separa la informacion en varios folder
 ## Documentacion Oficial
 
 `https://go.dev/`
+`https://go.dev/doc/effective_go` Go Efectivo Aca esta la documentacion con ejemplos ❤️
+`https://pkg.go.dev/std` Libreria Estandar donde estn lso paquetes como `fmt`
+
+![]()
 
 ## Documentacion de youutube
 
@@ -54,7 +73,6 @@ Existen varios canales uno es
 
 - `Roelcode` tiene uan lista de unos 20 videos 😀
 - `Digital Ocean`
--
 
 ### Tips
 
@@ -105,5 +123,81 @@ Existen varios canales uno es
   per1:=Person{Name: "John",Age: 37};
    fmt.Println(per1)
   }
-
   ```
+
+- Funciones Publicas y Privadas , las publicas tienen la primera palabra en mayucula y podran ser usas en otros paquetes
+
+### Creacion de Package y Modulos
+
+Este tema suele ser facil pero en go por ahi hace cosas raras
+
+- el go.mod es un package.json donde podemos configurar todas las dependencias o un pom.xml en java
+- La idea es poder compartir archivos entre distintos directorios vamos a suponer algo asi:
+
+```bash
+
+├── Proyecto
+│   ├── main.go
+│   └── compartido/
+│   |    └── mensaje.go
+|   └──go.mod
+
+```
+
+#### go.mod
+
+Creacion de un modulo ` go mod init <nombre de module>`
+
+```bash
+  module GoTutorial
+  go 1.22.4
+```
+
+Aca lo que vemos es que el go.mod esta en la raiz entonces todos los archivos pueden ser accedidos de todas partes
+
+#### configuracion de package
+
+Siguiendo la estructura tendriamos el folder compartido con un archivo llamado `mensaje.go`
+
+```go
+package compartido
+
+// Función para obtener un mensaje compartido
+func ObtenerMensaje() string {
+    return "¡Hola desde el paquete compartido!"
+}
+
+```
+
+#### Y en el archivo main.go
+
+```go
+package main
+
+import (
+    "fmt"
+    "GoTutorial/compartido" // Importa el paquete compartido a taves del nombre del modulo
+)
+
+func main() {
+    mensaje := compartido.ObtenerMensaje()
+    fmt.Println(mensaje)
+}
+
+```
+
+- Luego ejecutamos go run main.go y saldra una salida por consola como esta
+
+```go
+ariel@Linux-Mint:/Programacion/Golang/Go/02-Poo/2-paquetes$ go run main.go
+Hola desde main.go ¡Hola desde saluda!
+```
+
+## Tutorial: Desarrollo de una API RESTful con Go y Gin
+
+- La documentacion en Go esta en `https://go.dev/doc/tutorial/web-service-gin`
+
+```go
+//continuara ...
+
+```
