@@ -5,21 +5,15 @@ import (
 )
 
 
-func IndexRoutes(){
+func IndexRoutes(router *gin.RouterGroup){
 
-router:=gin.Default()
+
 
 api:=router.Group("/api")
 {
-   Hello(api)
+Hello(api)
  UserRoutes(api)
 }
-
-
-  err :=router.Run(":3000")
-  if err != nil{
-	panic(err)
-  }
 
 
 }

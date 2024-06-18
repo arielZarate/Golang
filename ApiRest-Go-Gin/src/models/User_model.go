@@ -1,20 +1,29 @@
 package models
 
+import "gorm.io/gorm"
+
 
 
 type User struct {
+gorm.Model
 
-ID int64 `json:"id"`	
+ID uint                                            `json:"id" gorm:"primaryKey"`
 
-Name string `json:"name"`
+Name string                                         `json:"name"`
 
-LastrName string `json:"last"`
+LastName string                                     `json:"last_name"`
 
-Email string `json:"email"`
-
-Password string `json:"password"`
+Email string       									`json:"email"`
 
 
 }
 
+//en MONGODB USARLO BSON
+//Password		string`bson:"password" json:"password,omitempty"` 
+type Login struct {
+gorm.Model
+Usersame string `json:"username"`
+Password string `json:"password"`
+
+}
    
